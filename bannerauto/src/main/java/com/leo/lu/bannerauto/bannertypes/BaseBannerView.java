@@ -42,7 +42,7 @@ public abstract class BaseBannerView {
     private String mUrl;
     private File mFile;
     private int mRes;
-    protected OnSliderClickListener mOnSliderClickListener;
+    protected OnBannerClickListener mOnBannerClickListener;
     private boolean mErrorDisappear;
     private ImageLoadListener mLoadListener;
     private String mDescription;
@@ -65,7 +65,7 @@ public abstract class BaseBannerView {
     }
 
     /**
-     * When you want to implement your own slider view, please call this method in the end in `getView()` method
+     * When you want to implement your own banner view, please call this method in the end in `getView()` method
      *
      * @param v               the whole view
      * @param targetImageView where to place image
@@ -75,8 +75,8 @@ public abstract class BaseBannerView {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mOnSliderClickListener != null) {
-                    mOnSliderClickListener.onSliderClick(me);
+                if (mOnBannerClickListener != null) {
+                    mOnBannerClickListener.onBannerClick(me);
                 }
             }
         });
@@ -211,7 +211,7 @@ public abstract class BaseBannerView {
     }
 
     /**
-     * the description of a slider image.
+     * the description of a banner image.
      *
      * @param description description
      * @return BaseBannerView
@@ -325,13 +325,13 @@ public abstract class BaseBannerView {
 
 
     /**
-     * set a slider image click listener
+     * set a banner image click listener
      *
      * @param l image click listener
      * @return BaseBannerView
      */
-    public BaseBannerView setOnSliderClickListener(OnSliderClickListener l) {
-        mOnSliderClickListener = l;
+    public BaseBannerView setOnBannerClickListener(OnBannerClickListener l) {
+        mOnBannerClickListener = l;
         return this;
     }
 
@@ -388,8 +388,8 @@ public abstract class BaseBannerView {
     }
 
 
-    public interface OnSliderClickListener {
-        void onSliderClick(BaseBannerView slider);
+    public interface OnBannerClickListener {
+        void onBannerClick(BaseBannerView banner);
     }
 
     public interface ImageLoadListener {
