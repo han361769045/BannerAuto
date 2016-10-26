@@ -8,7 +8,7 @@ BannerAuto is auto silde
 ```groove
 dependencies {
         compile 'com.android.support:appcompat-v7:24.2.0'
-        compile 'com.leo.lu:bannerauto:1.0.0'
+        compile 'com.leo.lu:bannerauto:1.0.1'
         compile 'com.github.bumptech.glide:glide:3.7.0'
 }
 ```
