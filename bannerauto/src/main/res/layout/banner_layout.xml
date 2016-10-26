@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.leo.lu.bannerauto.InfiniteViewPager
+        android:id="@+id/banner_viewpager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ViewStub
+        android:id="@+id/vs_default"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inflatedId="@+id/img_default"
+        android:layout="@layout/default_image"/>
+
+    <ViewStub
+        android:id="@+id/vs_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>
