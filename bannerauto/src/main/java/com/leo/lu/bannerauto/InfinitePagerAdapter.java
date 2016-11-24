@@ -82,4 +82,8 @@ public class InfinitePagerAdapter extends PagerAdapter {
         adapter.startUpdate(container);
     }
 
+
+    public float getPageWidth(int position) {
+        return 0.6f;
+    }
 }

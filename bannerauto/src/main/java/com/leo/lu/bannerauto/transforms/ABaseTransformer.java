@@ -33,11 +33,11 @@ public abstract class ABaseTransformer implements PageTransformer {
     /**
      * Called each {@link #transformPage(View, float)}.
      *
-     * @param View     Apply the transformation to this page
+     * @param view     Apply the transformation to this page
      * @param position Position of page relative to the current front-and-center position of the pager. 0 is front and
      *                 center. 1 is one full page position to the right, and -1 is one page position to the left.
      */
-    protected abstract void onTransform(View View, float position);
+    protected abstract void onTransform(View view, float position);
 
     /**
      * Apply a property transformation to the given page. For most use cases, this method should not be overridden.

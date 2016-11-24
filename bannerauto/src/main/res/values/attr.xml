@@ -54,12 +54,13 @@
             <enum name="Foreground2Background" value="9"/>
             <enum name="RotateDown" value="10"/>
             <enum name="RotateUp" value="11"/>
-            <enum name="ScaleInOut" value="12"/>
-            <enum name="Stack" value="13"/>
-            <enum name="Tablet" value="14"/>
-            <enum name="ZoomIn" value="15"/>
-            <enum name="ZoomOutSlide" value="16"/>
-            <enum name="ZoomOut" value="17"/>
+            <enum name="RotateY" value="12"/>
+            <enum name="ScaleInOut" value="13"/>
+            <enum name="Stack" value="14"/>
+            <enum name="Tablet" value="15"/>
+            <enum name="ZoomIn" value="16"/>
+            <enum name="ZoomOutSlide" value="17"/>
+            <enum name="ZoomOut" value="18"/>
         </attr>
         <attr name="pager_animation_span" format="integer"/>
         <attr name="pager_indicator" format="reference"/>

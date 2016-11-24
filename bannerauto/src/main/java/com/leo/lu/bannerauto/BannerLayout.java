@@ -31,6 +31,7 @@ import com.leo.lu.bannerauto.transforms.FlipVerticalTransformer;
 import com.leo.lu.bannerauto.transforms.ForegroundToBackgroundTransformer;
 import com.leo.lu.bannerauto.transforms.RotateDownTransformer;
 import com.leo.lu.bannerauto.transforms.RotateUpTransformer;
+import com.leo.lu.bannerauto.transforms.RotateYTransformer;
 import com.leo.lu.bannerauto.transforms.ScaleInOutTransformer;
 import com.leo.lu.bannerauto.transforms.StackTransformer;
 import com.leo.lu.bannerauto.transforms.TabletTransformer;
@@ -151,7 +152,7 @@ public class BannerLayout extends RelativeLayout {
             }
         }
         mBannerAdapter = new BannerAdapter(mContext, this);
-        PagerAdapter wrappedAdapter = new InfinitePagerAdapter(mBannerAdapter);
+        InfinitePagerAdapter wrappedAdapter = new InfinitePagerAdapter(mBannerAdapter);
 
         mViewPager = (InfiniteViewPager) findViewById(R.id.banner_viewpager);
         mViewPager.setAdapter(wrappedAdapter);
@@ -400,7 +401,7 @@ public class BannerLayout extends RelativeLayout {
      * set ViewPager transformer.
      *
      * @param reverseDrawingOrder reverseDrawingOrder
-     * @param transformer transformer
+     * @param transformer         transformer
      */
     public void setPagerTransformer(boolean reverseDrawingOrder, ABaseTransformer transformer) {
         mViewPagerTransformer = transformer;
@@ -412,7 +413,7 @@ public class BannerLayout extends RelativeLayout {
     /**
      * set the duration between two banner changes.
      *
-     * @param period period
+     * @param period       period
      * @param interpolator interpolator
      */
     public void setBannerTransformDuration(int period, Interpolator interpolator) {
@@ -442,6 +443,7 @@ public class BannerLayout extends RelativeLayout {
         Foreground2Background("Foreground2Background"),
         RotateDown("RotateDown"),
         RotateUp("RotateUp"),
+        RotateY("RotateY"),
         ScaleInOut("ScaleInOut"),
         Stack("Stack"),
         Tablet("Tablet"),
@@ -555,6 +557,9 @@ public class BannerLayout extends RelativeLayout {
             case RotateUp:
                 t = new RotateUpTransformer();
                 break;
+            case RotateY:
+                t = new RotateYTransformer();
+                break;
             case Stack:
                 t = new StackTransformer();
                 break;
@@ -656,7 +661,8 @@ public class BannerLayout extends RelativeLayout {
 
     /**
      * remove  the banner at the position. Notice: It's a not perfect method, a very small bug still exists.
-     * @param  position position
+     *
+     * @param position position
      */
     public void removeBannerAt(int position) {
         if (getRealAdapter() != null) {
@@ -682,7 +688,7 @@ public class BannerLayout extends RelativeLayout {
      * set current
      *
      * @param position position
-     * @param smooth smooth
+     * @param smooth   smooth
      */
     public void setCurrentPosition(int position, boolean smooth) {
         if (getRealAdapter() == null)
@@ -701,7 +707,8 @@ public class BannerLayout extends RelativeLayout {
 
     /**
      * move to prev slide.
-     *@param  smooth smooth
+     *
+     * @param smooth smooth
      */
     public void movePrevPosition(boolean smooth) {
 
@@ -717,7 +724,8 @@ public class BannerLayout extends RelativeLayout {
 
     /**
      * move to next slide.
-     * @param  smooth smooth
+     *
+     * @param smooth smooth
      */
     public void moveNextPosition(boolean smooth) {
 

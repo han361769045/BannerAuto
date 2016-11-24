@@ -3,12 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipChildren="false">
 
     <com.leo.lu.bannerauto.InfiniteViewPager
         android:id="@+id/banner_viewpager"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:clipChildren="false"/>
 
     <ViewStub
         android:id="@+id/vs_default"

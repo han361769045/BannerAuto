@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <com.leo.lu.bannerauto.BannerLayout
+        android:id="@+id/bl_bl"
+        android:layout_width="match_parent"
+        android:layout_height="227dp"
+        app:indicator_visibility="visible"
+        app:pager_animation="RotateY"/>
 
 </LinearLayout>
