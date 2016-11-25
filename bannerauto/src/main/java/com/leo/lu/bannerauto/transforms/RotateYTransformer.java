@@ -1,6 +1,5 @@
 package com.leo.lu.bannerauto.transforms;
 
-import android.os.Build;
 import android.view.View;
 
 /**
@@ -19,16 +18,13 @@ public class RotateYTransformer extends ABaseTransformer {
     @Override
     protected void onTransform(View view, float position) {
 //        view.setPivotY(view.getHeight() / 2);
-//
 //        if (position < -1) { // [-Infinity,-1)
 //            // This page is way off-screen to the left.
 //            view.setRotationY(-1 * mMaxRotate);
 //            view.setPivotX(view.getWidth());
 //        } else if (position <= 1) { // [-1,1]
 //            // Modify the default slide transition to shrink the page as well
-//
 //            view.setRotationY(position * mMaxRotate);
-//
 //            if (position < 0)//[0,-1]
 //            {
 //                view.setPivotX(view.getWidth() * (DEFAULT_CENTER + DEFAULT_CENTER * (-position)));
@@ -38,7 +34,6 @@ public class RotateYTransformer extends ABaseTransformer {
 //                view.setPivotX(view.getWidth() * DEFAULT_CENTER * (1 - position));
 //                view.setPivotX(0);
 //            }
-//
 //            // Scale the page down (between MIN_SCALE and 1)
 //        } else { // (1,+Infinity]
 //            // This page is way off-screen to the right.
@@ -50,21 +45,20 @@ public class RotateYTransformer extends ABaseTransformer {
         } else if (position > 1) {
             position = 1;
         }
-
         float tempScale = position < 0 ? 1 + position : 1 - position;
         float slope = (MAX_SCALE - MIN_SCALE) / 1;
         //一个公式
         float scaleValue = MIN_SCALE + tempScale * slope;
         view.setScaleX(scaleValue);
         view.setScaleY(scaleValue);
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-            view.getParent().requestLayout();
-        }
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+//            view.getParent().requestLayout();
+//        }
     }
 
-    protected void onPostTransform(View view, float position) {
-    }
-
+//    protected void onPostTransform(View view, float position) {
+//    }
+//
     protected void onPreTransform(View view, float position) {
     }
 

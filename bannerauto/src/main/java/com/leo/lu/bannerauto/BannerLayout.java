@@ -138,6 +138,7 @@ public class BannerLayout extends RelativeLayout {
         super(context, attrs, defStyle);
         mContext = context;
         LayoutInflater.from(context).inflate(R.layout.banner_layout, this, true);
+        this.setClipChildren(false);
         final TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable.BannerLayout,
                 defStyle, 0);
 
@@ -153,8 +154,8 @@ public class BannerLayout extends RelativeLayout {
         }
         mBannerAdapter = new BannerAdapter(mContext, this);
         InfinitePagerAdapter wrappedAdapter = new InfinitePagerAdapter(mBannerAdapter);
-
         mViewPager = (InfiniteViewPager) findViewById(R.id.banner_viewpager);
+        mViewPager.getLayoutParams().width = 400;
         mViewPager.setAdapter(wrappedAdapter);
         mViewPager.setOnTouchListener(new OnTouchListener() {
             @Override
