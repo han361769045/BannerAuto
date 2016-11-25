@@ -56,7 +56,7 @@ public class RotateYTransformer extends ABaseTransformer {
 //        }
     }
 
-//    protected void onPostTransform(View view, float position) {
+    //    protected void onPostTransform(View view, float position) {
 //    }
 //
     protected void onPreTransform(View view, float position) {
