@@ -25,7 +25,7 @@ Add permissions (if necessary) to your `AndroidManifest.xml`
 ## step3
 Add the BannerLayout to your layout:
 ```xml
-<com.leo.lu.BannerLayout
+<com.leo.lu.bannerauto.BannerLayout
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="190dp"
