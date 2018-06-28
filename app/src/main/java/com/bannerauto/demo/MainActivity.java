@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         bl_bl = (BannerLayout) findViewById(R.id.bl_bl);
         for (int i = 0; i < 10; i++) {
             DefaultBannerView defaultBannerView = new DefaultBannerView(this);
-            defaultBannerView.image(R.mipmap.ic_launcher);
+            defaultBannerView.image("http://img.zcool.cn/community/0117e2571b8b246ac72538120dd8a4.jpg@1280w_1l_2o_100sh.jpg");
             bl_bl.addBanner(defaultBannerView);
         }
     }

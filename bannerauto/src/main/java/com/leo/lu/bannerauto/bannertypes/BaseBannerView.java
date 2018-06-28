@@ -3,19 +3,20 @@ package com.leo.lu.bannerauto.bannertypes;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.leo.lu.bannerauto.R;
-import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.RequestCreator;
 
 import java.io.File;
 
@@ -48,7 +49,7 @@ public abstract class BaseBannerView {
     private String mDescription;
     private Picasso mPicasso;
     private RequestManager mGlide;
-    private boolean isGlide;
+    private boolean isGlide = true;
     /**
      * Scale type of the image.
      */
@@ -61,7 +62,6 @@ public abstract class BaseBannerView {
 
     protected BaseBannerView(Context context) {
         mContext = context;
-        isGlide = true;
     }
 
     /**
@@ -88,13 +88,78 @@ public abstract class BaseBannerView {
         if (isGlide) {
             useGlide(v, targetImageView, me);
         } else {
-            usePicasso(v, targetImageView, me);
+//            usePicasso(v, targetImageView, me);
         }
     }
 
-    private void usePicasso(final View v, ImageView targetImageView, final BaseBannerView me) {
-        Picasso p = (mPicasso != null) ? mPicasso : Picasso.with(mContext);
-        RequestCreator rq;
+//    private void usePicasso(final View v, ImageView targetImageView, final BaseBannerView me) {
+//        Picasso p = (mPicasso != null) ? mPicasso : Picasso.with(mContext);
+//        RequestCreator rq;
+//        if (mUrl != null) {
+//            rq = p.load(mUrl);
+//        } else if (mFile != null) {
+//            rq = p.load(mFile);
+//        } else if (mRes != 0) {
+//            rq = p.load(mRes);
+//        } else {
+//            return;
+//        }
+//
+//        if (rq == null) {
+//            return;
+//        }
+//
+//        if (getEmpty() != 0) {
+//            rq.placeholder(getEmpty());
+//        }
+//
+//        if (getError() != 0) {
+//            rq.error(getError());
+//        }
+//
+//        switch (mScaleType) {
+//            case Fit:
+//                rq.fit();
+//                break;
+//            case CenterCrop:
+//                rq.fit().centerCrop();
+//                break;
+//            case CenterInside:
+//                rq.fit().centerInside();
+//                break;
+//        }
+//
+//        rq.into(targetImageView, new Callback() {
+//            @Override
+//            public void onSuccess() {
+//                if (v.findViewById(R.id.loading_bar) != null) {
+//                    v.findViewById(R.id.loading_bar).setVisibility(View.INVISIBLE);
+//                }
+//            }
+//
+//            @Override
+//            public void onError() {
+//                if (mLoadListener != null) {
+//                    mLoadListener.onEnd(false, me);
+//                }
+//                if (v.findViewById(R.id.loading_bar) != null) {
+//                    v.findViewById(R.id.loading_bar).setVisibility(View.INVISIBLE);
+//                }
+//            }
+//        });
+//    }
+
+    private void useGlide(final View v, ImageView targetImageView, final BaseBannerView me) {
+        RequestOptions requestOptions = RequestOptions.sizeMultiplierOf(0.3f).centerCrop();
+        RequestManager p = (mGlide != null) ? mGlide : Glide.with(mContext);
+        if (getEmpty() != 0) {
+            requestOptions = requestOptions.placeholder(getEmpty());
+        }
+        if (getError() != 0) {
+            requestOptions = requestOptions.error(getError());
+        }
+        p.applyDefaultRequestOptions(requestOptions);
+        RequestBuilder<Drawable> rq;
         if (mUrl != null) {
             rq = p.load(mUrl);
         } else if (mFile != null) {
@@ -104,98 +169,30 @@ public abstract class BaseBannerView {
         } else {
             return;
         }
-
         if (rq == null) {
             return;
         }
-
-        if (getEmpty() != 0) {
-            rq.placeholder(getEmpty());
-        }
-
-        if (getError() != 0) {
-            rq.error(getError());
-        }
-
-        switch (mScaleType) {
-            case Fit:
-                rq.fit();
-                break;
-            case CenterCrop:
-                rq.fit().centerCrop();
-                break;
-            case CenterInside:
-                rq.fit().centerInside();
-                break;
-        }
-
-        rq.into(targetImageView, new Callback() {
+        rq.listener(new RequestListener<Drawable>() {
             @Override
-            public void onSuccess() {
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                 if (v.findViewById(R.id.loading_bar) != null) {
                     v.findViewById(R.id.loading_bar).setVisibility(View.INVISIBLE);
                 }
-            }
-
-            @Override
-            public void onError() {
                 if (mLoadListener != null) {
                     mLoadListener.onEnd(false, me);
                 }
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                //在这里添加一些图片加载完成的操作
                 if (v.findViewById(R.id.loading_bar) != null) {
                     v.findViewById(R.id.loading_bar).setVisibility(View.INVISIBLE);
                 }
+                return false;
             }
-        });
-    }
-
-    private void useGlide(final View v, ImageView targetImageView, final BaseBannerView me) {
-        RequestManager p = (mGlide != null) ? mGlide : Glide.with(mContext);
-        DrawableTypeRequest rq;
-        if (mUrl != null) {
-            rq = p.load(mUrl);
-        } else if (mFile != null) {
-            rq = p.load(mFile);
-        } else if (mRes != 0) {
-            rq = p.load(mRes);
-        } else {
-            return;
-        }
-        if (rq == null) {
-            return;
-        }
-        if (getEmpty() != 0) {
-            rq.placeholder(getEmpty());
-        }
-        if (getError() != 0) {
-            rq.error(getError());
-        }
-//        final WeakReference<ImageView> imageViewWeakReference = new WeakReference<>(targetImageView);
-        rq.thumbnail(0.3f)
-                .skipMemoryCache(false)
-                .centerCrop()
-                .into(new GlideDrawableImageViewTarget(targetImageView) {
-                    @Override
-                    public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> animation) {
-                        super.onResourceReady(resource, animation);
-                        //在这里添加一些图片加载完成的操作
-                        if (v.findViewById(R.id.loading_bar) != null) {
-                            v.findViewById(R.id.loading_bar).setVisibility(View.INVISIBLE);
-                        }
-                    }
-
-                    @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
-                        if (v.findViewById(R.id.loading_bar) != null) {
-                            v.findViewById(R.id.loading_bar).setVisibility(View.INVISIBLE);
-                        }
-                        if (mLoadListener != null) {
-                            mLoadListener.onEnd(false, me);
-                        }
-                    }
-
-                });
+        }).into(targetImageView);
     }
 
 

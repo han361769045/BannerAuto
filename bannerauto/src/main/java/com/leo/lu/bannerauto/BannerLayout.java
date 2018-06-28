@@ -155,7 +155,6 @@ public class BannerLayout extends RelativeLayout {
         mBannerAdapter = new BannerAdapter(mContext, this);
         InfinitePagerAdapter wrappedAdapter = new InfinitePagerAdapter(mBannerAdapter);
         mViewPager = (InfiniteViewPager) findViewById(R.id.banner_viewpager);
-        mViewPager.getLayoutParams().width = 400;
         mViewPager.setAdapter(wrappedAdapter);
         mViewPager.setOnTouchListener(new OnTouchListener() {
             @Override
